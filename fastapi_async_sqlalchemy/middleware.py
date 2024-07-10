@@ -3,7 +3,8 @@ from typing import Dict, Optional, Union
 
 from sqlalchemy.engine import Engine
 from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.types import ASGIApp
@@ -93,6 +94,7 @@ def create_middleware_and_session_proxy():
             finally:
                 await session.close()
                 _session.reset(self.token)
+            raise
 
     return SQLAlchemyMiddleware, DBSession
 
