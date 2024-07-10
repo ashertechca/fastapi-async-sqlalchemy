@@ -94,9 +94,7 @@ def create_middleware_and_session_proxy():
             finally:
                 await session.close()
                 _session.reset(self.token)
-            print(exc_value, exc_type, traceback)
-            if exc_type is not None and exc_value is not None:
-                raise exc_value
+                
 
     return SQLAlchemyMiddleware, DBSession
 
